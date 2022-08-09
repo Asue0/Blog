@@ -27,13 +27,20 @@ function App() {
                return (
                   <div className="list" key={i}>
                      <h4 onClick={ () => { setModal(!modal); changeNumT(i); } }>{ title[i] }
-                        <span onClick={() => {
+                        <span onClick={(e) => {
+                           e.stopPropagation();
                            let copy = [...good];
                            copy[i] += 1;
                            plusGood(copy);
                         }}>👍</span>{ good[i] }
+            
                      </h4>
                      <p>8월 03일 발행</p>
+                     <button onClick={()=>{
+                        let copy = [...title];
+                        copy.splice(i, 1);
+                        changeTitle(copy);
+                     }}>삭제</button>
                   </div>
                )
             })
@@ -41,8 +48,12 @@ function App() {
 
          <input onChange={(e)=>{
             cInput(e.target.value);
-            console.log(tInput);
             }} />
+         <button onClick={()=>{
+            let copy=[...title];
+            copy.unshift(tInput);
+            changeTitle(copy);
+         }}>글추가</button>
          
          {
             modal == true 
